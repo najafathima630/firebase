@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "569231581248",
+    "firebase_url": "https://fir-study-69fcb-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fir-study-69fcb",
+    "storage_bucket": "fir-study-69fcb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569231581248:android:20cfd42a6e1c430285ffa5",
+        "android_client_info": {
+          "package_name": "com.example.firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANut6-Rb1LKz5pmywKyE4j5H8wz5GSMfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
