@@ -1,26 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Fruits_ViewDetails extends StatefulWidget {
-  const Fruits_ViewDetails({super.key, required this.id});
+class VegetableView_Details extends StatefulWidget {
+  const VegetableView_Details({super.key,this.id});
 final id;
   @override
-  State<Fruits_ViewDetails> createState() => _Fruits_ViewDetailsState();
+  State<VegetableView_Details> createState() => _VegetableView_DetailsState();
 }
 
-class _Fruits_ViewDetailsState extends State<Fruits_ViewDetails> {
+class _VegetableView_DetailsState extends State<VegetableView_Details> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Text("FRUITS DETAILS"),
-      ),
+    return Scaffold( appBar: AppBar(
+      backgroundColor: Colors.blue,
+      title: Text("VEGETABLE DETAILS"),
+    ),
       body: Padding(
         padding: const EdgeInsets.only(top: 10, left: 10, bottom: 10),
         child: FutureBuilder(
           future: FirebaseFirestore.instance
-              .collection("fruitsdetails")
+              .collection("vegetabledetails")
               .doc(widget.id)
               .get(),
           builder: (context, snapshot) {
@@ -33,7 +32,7 @@ class _Fruits_ViewDetailsState extends State<Fruits_ViewDetails> {
             if (!snapshot.hasData || snapshot.data == null) {
               return Center(child: Text("no user data found"));
             }
-            final fruit = snapshot.data!.data() as Map<String, dynamic>;
+            final vegeta = snapshot.data!.data() as Map<String, dynamic>;
             return Column(
               children: [
                 SizedBox(
@@ -47,7 +46,7 @@ class _Fruits_ViewDetailsState extends State<Fruits_ViewDetails> {
                       width: 200,
                       decoration: BoxDecoration(color: Colors.black,
                           image: DecorationImage(
-                              image: NetworkImage(fruit["image"]),fit: BoxFit.cover)),
+                              image: NetworkImage(vegeta["image"]),fit: BoxFit.cover)),
                     )
                   ],
                 ),
@@ -55,9 +54,9 @@ class _Fruits_ViewDetailsState extends State<Fruits_ViewDetails> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      fruit["name"] ?? "no found",
+                      vegeta["name"] ?? "no found",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     )
                   ],
                 ),
@@ -65,9 +64,9 @@ class _Fruits_ViewDetailsState extends State<Fruits_ViewDetails> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      fruit["price"] ?? "no found",
+                      vegeta["price"] ?? "no found",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     )
                   ],
                 )
@@ -75,7 +74,6 @@ class _Fruits_ViewDetailsState extends State<Fruits_ViewDetails> {
             );
           },
         ),
-      ),
-    );
+      ),);
   }
 }

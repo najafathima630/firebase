@@ -1,33 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/Vegitable/vegetable_view_details.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../fruits/fruits_adddata.dart';
 import '../fruits_upadate_data.dart';
-import 'fruits_adddata.dart';
-import 'fruits_view_details.dart';
 
-class Fruits_Datas extends StatefulWidget {
-  const Fruits_Datas({super.key});
+class Vegetable_Data extends StatefulWidget {
+  const Vegetable_Data({super.key,this.id});
+  final id;
 
   @override
-  State<Fruits_Datas> createState() => _Fruits_DatasState();
+  State<Vegetable_Data> createState() => _Vegetable_DataState();
 }
 
-class _Fruits_DatasState extends State<Fruits_Datas> {
+class _Vegetable_DataState extends State<Vegetable_Data> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.amber,
-          title: Text(
-            "FRUITS NAME",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
+    return Scaffold(appBar: AppBar(
+      backgroundColor: Colors.amber,
+      title: Text(
+        "FRUITS NAME",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    ),
         body: Column(children: [
           Expanded(
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("fruitsdetails")
+                  .collection("vegetabledetails")
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -36,13 +37,13 @@ class _Fruits_DatasState extends State<Fruits_Datas> {
                 if (!snapshot.hasData) {
                   return Center(child: Text("no data found"));
                 }
-                var fruitss = snapshot.data!.docs;
+                var vegeta = snapshot.data!.docs;
                 return ListView.builder(
-                  itemCount: fruitss.length,
+                  itemCount: vegeta.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding:
-                          const EdgeInsets.only(top: 10, right: 20, left: 20),
+                      const EdgeInsets.only(top: 10, right: 20, left: 20),
                       child: Card(
                           color: Colors.white,
                           child: Container(width: 200,height: 100,
@@ -50,25 +51,25 @@ class _Fruits_DatasState extends State<Fruits_Datas> {
                               children: [
                                 InkWell(onTap: () {
                                   Navigator.push(context,MaterialPageRoute(builder: (context) {
-                                    return Fruits_ViewDetails(id: fruitss[index].id,);
+                                    return VegetableView_Details(id: vegeta[index].id,);
                                   },) );
                                 },
                                   child: Row(
                                     children: [
                                       Text(
-                                        fruitss[index]["name"],
+                                        vegeta[index]["name"],
                                         style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold),
 
-                                      ),SizedBox(width: 250,),IconButton(
+                                      ),Row(children: [SizedBox(width: 250,),IconButton(
                                           onPressed: () {
                                             FirebaseFirestore.instance
-                                                .collection("fruitsdetails")
-                                                .doc(fruitss[index].id)
+                                                .collection("vegetabledetails")
+                                                .doc(vegeta[index].id)
                                                 .delete();
                                           },
-                                          icon: Icon(Icons.delete)),
+                                          icon: Icon(Icons.delete)),],)
 
                                     ],
                                   ),
@@ -80,7 +81,7 @@ class _Fruits_DatasState extends State<Fruits_Datas> {
                                           MaterialPageRoute(
                                             builder: (context) {
                                               return Fruits_UpadateData(
-                                                  id: fruitss[index].id);
+                                                  id: vegeta[index].id);
                                             },
                                           ));
                                     },
